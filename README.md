@@ -20,25 +20,27 @@ This is also why Ubuntu 12.04 is used as the base image.
 
 The same process should work on other Debian and Debian based distros.
  
-Depending on your distro of choice, you may not need to compile some of these deps yourself but rather, install the deb packages from the official repo.
+Depending on your distro of choice, you may not have to build some of these deps yourself [like Cmake and nasm] but rather, install the deb packages from the official repo.
 
 ## What will this build produce?
 `ffmpeg` and `ffprobe` binaries that weigh a ton but have ZERO external deps. Yup, zero.
+
 FFmpeg is built with the following codecs/filters/options:
-- x264
-- x265
-- FDK
-- LAME
-- Ogg
-- Vorbis
-- Speex
-- Theora
-- OpenCore AMR [Adaptive Multi Rate Narrowband and Wideband]
-- OpenJPEG
-- VPX
-- OpenCV
-- VAMF
-- Facebook Transform360
+
+- [x264](https://www.videolan.org/developers/x264.html)
+- [x265](x265.org)
+- [FDK](https://github.com/mstorsjo/fdk-aac)
+- [LAME](lame.sourceforge.net)
+- [Ogg](https://xiph.org/ogg)
+- [Vorbis](https://xiph.org/vorbis)
+- [Speex](https://speex.org)
+- [Theora](https://xiph.org/theora)
+- [OpenCore AMR - Adaptive Multi Rate Narrowband and Wideband](http://sourceforge.net/projects/opencore-amr)
+- [OpenJPEG](www.openjpeg.org)
+- [VPX](https://github.com/webmproject/libvpx)
+- [OpenCV](https://opencv.org)
+- [VAMF](https://github.com/Netflix/vmaf)
+- [Facebook Transform360](https://github.com/facebook/transform360)
 
 The versions for these deps are set as ENV vars in the beginning of the Dockerfile so fetching, building and linking against different versions should be relatively painless [unless it fails, of course:)].
 
