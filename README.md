@@ -10,7 +10,7 @@ Note that this repo includes two patches required in order to link against Faceb
 If you use a newer FFmpeg version, you may need to modify these.
 
 ## When should one use this build process?
-If you do not **absolutely** have to produce FFmpeg binaries with no external deps, you should NOT be using this build process.
+If you do not **absolutely have to** produce FFmpeg binaries with no external deps, you should NOT be using this build process.
 While static linkage has its advantages, it also has several shortcomings, namely:
 - It needs to be updated every time new versions of the libraries/components it depends on are released [this is not only important due to bugfixes and added features but also from a security perspective] 
 - It results in much bigger binaries
