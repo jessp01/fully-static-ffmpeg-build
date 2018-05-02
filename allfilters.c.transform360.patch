@@ -1,0 +1,10 @@
+--- libavfilter/allfilters.c	2018-04-20 10:02:57.000000000 +0000
++++ libavfilter/allfilters.c.4.0.fix	2018-05-02 13:48:46.866555512 +0000
+@@ -334,6 +334,7 @@
+ extern AVFilter ff_vf_tinterlace;
+ extern AVFilter ff_vf_tlut2;
+ extern AVFilter ff_vf_tonemap;
++extern AVFilter ff_vf_transform360;
+ extern AVFilter ff_vf_transpose;
+ extern AVFilter ff_vf_trim;
+ extern AVFilter ff_vf_unpremultiply;

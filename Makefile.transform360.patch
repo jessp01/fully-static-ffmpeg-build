@@ -1,0 +1,10 @@
+--- libavfilter/Makefile        2018-04-20 10:02:57.000000000 +0000
++++ libavfilter/Makefile.transform360.patch    2018-05-02 13:48:47.066555512 +0000
+@@ -343,6 +343,7 @@
+ OBJS-$(CONFIG_TINTERLACE_FILTER)             += vf_tinterlace.o
+ OBJS-$(CONFIG_TLUT2_FILTER)                  += vf_lut2.o framesync.o
+ OBJS-$(CONFIG_TONEMAP_FILTER)                += vf_tonemap.o
++OBJS-$(CONFIG_TRANSFORM360_FILTER)           += vf_transform360.o
+ OBJS-$(CONFIG_TRANSPOSE_FILTER)              += vf_transpose.o
+ OBJS-$(CONFIG_TRIM_FILTER)                   += trim.o
+ OBJS-$(CONFIG_UNPREMULTIPLY_FILTER)          += vf_premultiply.o framesync.o
