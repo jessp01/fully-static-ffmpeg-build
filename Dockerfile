@@ -26,6 +26,7 @@ ENV OPENCV_VER 2.4.13.6
 ENV FFMPEG_VER 4.0
 ENV FFMPEG_PREFIX /opt/kaltura/ffmpeg-$FFMPEG_VER
 ENV BUILD_DIR /tmp/build
+ENV MAKE_PARALLEL_JOBS 4
 
 RUN mkdir -p $BUILD_DIR
 COPY vf_transform360.c  $BUILD_DIR/
@@ -83,13 +84,13 @@ RUN cd $BUILD_DIR && wget http://www.cmake.org/files/v2.8/cmake-$CMAKE_VER.tar.g
         tar xzf cmake-$CMAKE_VER.tar.gz && \
         cd cmake-$CMAKE_VER && \
         ./configure && \
-        make -j4 && \
+        make -j$MAKE_PARALLEL_JOBS && \
         make install && cd $BUILD_DIR
 
 RUN cd $BUILD_DIR && wget ftp://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-$X264_VER-stable.tar.bz2 && \
         tar jxf x264-snapshot-$X264_VER-stable.tar.bz2 && \
         cd x264-snapshot-$X264_VER-stable && \
-        ./configure && make && make install
+        ./configure && make -j$MAKE_PARALLEL_JOBS && make install
 # copy headers and libx264.a, you'd expect the `install` target to do that but it doesn't
 RUN cp $BUILD_DIR/x264-snapshot-$X264_VER-stable/libx264.a /usr/local/lib && \
         cp $BUILD_DIR/x264-snapshot-$X264_VER-stable/x264_config.h $BUILD_DIR/x264-snapshot-$X264_VER-stable/x264.h /usr/local/include 
@@ -108,58 +109,58 @@ RUN cd $BUILD_DIR && wget https://github.com/mstorsjo/fdk-aac/archive/v$FDK_ACC_
         tar zxf fdk-aac-v$FDK_ACC_VER.tar.gz && \
         cd fdk-aac-$FDK_ACC_VER && \
         ./autogen.sh && \
-        ./configure --enable-static --disable-shared && make && make install 
+        ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
 RUN cd $BUILD_DIR && wget http://sourceforge.net/projects/lame/files/lame/3.99/lame-$LAME_VER.tar.gz \
         && tar zxf lame-$LAME_VER.tar.gz \
         && cd lame-$LAME_VER \
-        && ./configure --enable-static --disable-shared && make && make install
+        && ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install
 
 RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/ogg/libogg-$OGG_VER.tar.gz && \
         tar zxf libogg-$OGG_VER.tar.gz && \
         cd libogg-$OGG_VER && \
-        ./configure --enable-static --disable-shared && make && make install
+        ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install
 
 RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/vorbis/libvorbis-$LIBVORBIS_VER.tar.gz && \
         tar zxf libvorbis-$LIBVORBIS_VER.tar.gz  && \
         cd libvorbis-$LIBVORBIS_VER && \
-        ./configure --enable-static --disable-shared && make && make install 
+        ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
 RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/theora/libtheora-$LIBTHEORA_VER.tar.gz && \
         tar zxf libtheora-$LIBTHEORA_VER.tar.gz  && \
         cd libtheora-$LIBTHEORA_VER && \
-        ./configure --enable-static --disable-shared && make && make install 
+        ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
 RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/speex/speex-$SPEEX_VER.tar.gz && \
         tar zxf speex-$SPEEX_VER.tar.gz  && \
         cd speex-$SPEEX_VER && \
-        ./configure --enable-static --disable-shared && make && make install 
+        ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
 RUN cd $BUILD_DIR && wget http://downloads.xvid.org/downloads/xvidcore-$XVIDCORE_VER.tar.gz && \
         tar zxf xvidcore-$XVIDCORE_VER.tar.gz  && \
         cd xvidcore/build/generic && \
-        ./configure --enable-static --disable-shared && make && make install 
+        ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
 RUN cd $BUILD_DIR && wget http://sourceforge.net/projects/opencore-amr/files/opencore-amr/opencore-amr-$OPENCORE_AMR_VER.tar.gz && \
         tar zxf opencore-amr-$OPENCORE_AMR_VER.tar.gz && \
         cd opencore-amr-$OPENCORE_AMR_VER && \
-        ./configure --enable-static --disable-shared && make && make install
+        ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install
 
 RUN cd $BUILD_DIR && wget https://github.com/uclouvain/openjpeg/archive/v$OPENJPEG_VER.tar.gz -O openjpeg-v$OPENJPEG_VER.tar.gz && \
         tar zxf openjpeg-v$OPENJPEG_VER.tar.gz && \
         cd openjpeg-$OPENJPEG_VER/ && \
         cmake -G "Unix Makefiles" && \
-        make && make install
+        make -j$MAKE_PARALLEL_JOBS && make install
 
 RUN cd $BUILD_DIR && wget https://github.com/webmproject/libvpx/archive/v$LIBVPX_VER.tar.gz && \
         tar zxf v$LIBVPX_VER.tar.gz && \
         cd libvpx-$LIBVPX_VER/ && \
-        ./configure --enable-pic --enable-static --disable-shared && make && make install 
+        ./configure --enable-pic --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
 RUN cd $BUILD_DIR && wget https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -O vmaf-$VMAF_VER.zip && \
         unzip vmaf-$VMAF_VER.zip && \
         cd vmaf-$VMAF_VER && \ 
-        make && make install 
+        make -j$MAKE_PARALLEL_JOBS && make install 
 
 RUN cd $BUILD_DIR && wget https://github.com/opencv/opencv/archive/$OPENCV_VER.tar.gz -O opencv-$OPENCV_VER.tar.gz && \
         tar zxf opencv-$OPENCV_VER.tar.gz && \
@@ -168,7 +169,7 @@ RUN cd $BUILD_DIR && wget https://github.com/opencv/opencv/archive/$OPENCV_VER.t
         mkdir buildme && \
         cd buildme && \
         cmake $BUILD_DIR/opencv-$OPENCV_VER/ -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=OFF -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON && \
-        make && make install
+        make -j$MAKE_PARALLEL_JOBS && make install
 
 # build ffmpeg with transform360
 RUN cd $BUILD_DIR && wget http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz && \
@@ -178,7 +179,7 @@ RUN cd $BUILD_DIR && wget http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz &
         unzip transform360-$TRANSFORM360_VER.zip && \
         cd transform360-$TRANSFORM360_VER/Transform360 && \
         rm -f CMakeCache.txt && \
-        cmake . && make && \
+        cmake . && make -j$MAKE_PARALLEL_JOBS && \
         mkdir -p $BUILD_DIR/objects && \
         cd $BUILD_DIR/objects && \
         # extract libstdc++ and opencv objects
