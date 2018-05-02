@@ -15,7 +15,7 @@ While static linkage has its advantages, it also has several shortcomings, namel
 - Every time new versions of the libraries/components your project depends on are released [this is not only important due to bugfixes and added features but also from a security perspective], you must build a new version 
 - It results in much bigger binaries
 
-In my case, I had to build FFmpeg this way because resulting binaries had to run on both Ubuntu 12.04 and Ubuntu 16.04 and updating libstdc++ on the 12.04 instance was not feasible whereas the build process [due to several mandatory deps] required a g++ version that fully supports the c11 standard, which, the g++ provided in the official Ubuntu repos [version 4.6] did not.
+In my case, I had to build FFmpeg this way because the resulting binaries had to run on both Ubuntu 12.04 and Ubuntu 16.04 and updating libstdc++ on the 12.04 instance was not feasible whereas the build process [due to several mandatory deps] required a g++ version that fully supports the c11 standard, which, the g++ provided in the official Ubuntu repos [version 4.6] did not.
 This is also why Ubuntu 12.04 is used as the base image. The same process should work on other Debian and Debian based distros. 
 Depending on your distro of choice, you may not need to compile some of these deps yourself but rather, install the deb packages from the official repo.
 
@@ -37,7 +37,7 @@ FFmpeg is built with the following codecs/filters/options:
 - VAMF
 - Facebook Transform360
 
-
+The versions for these deps are set as ENV vars in the beginning of the Dockerfile so building and linking against different versions should be relatively painless [unless it fails, of course:)].
 
 ## Important note about distributing the resulting binaries
 Legally, you are NOT, and therefore, should NOT, distribute the resulting binaries.
@@ -52,5 +52,4 @@ Build the container with:
 ```
 The resulting binaries will be installed under `/opt/kaltura/ffmpeg-$FFMPEG_VER` inside the container.
 Of course, you're free to change the prefix or anything else to suit your particular needs.
-
 
