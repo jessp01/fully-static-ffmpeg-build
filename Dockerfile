@@ -73,21 +73,21 @@ RUN apt-get install -y \
 # nasm 2.13 or above is required and since the Ubuntu 12.04 repos have an older version, we must build our own
 RUN mkdir -p /usr/local/lib/pkgconfig && \
         cd $BUILD_DIR  && \
-        wget http://www.nasm.us/pub/nasm/releasebuilds/$NASM_VER/nasm-$NASM_VER.tar.bz2 && \
-        tar xjvf nasm-$NASM_VER.tar.bz2 && \
+        wget -q http://www.nasm.us/pub/nasm/releasebuilds/$NASM_VER/nasm-$NASM_VER.tar.bz2 && \
+        tar jxf nasm-$NASM_VER.tar.bz2 && \
         cd nasm-$NASM_VER && \
         ./autogen.sh && \
         ./configure  && make && make install 
 
 # cmake 2.8.10 or above is required
-RUN cd $BUILD_DIR && wget http://www.cmake.org/files/v2.8/cmake-$CMAKE_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q http://www.cmake.org/files/v2.8/cmake-$CMAKE_VER.tar.gz && \
         tar xzf cmake-$CMAKE_VER.tar.gz && \
         cd cmake-$CMAKE_VER && \
         ./configure && \
         make -j$MAKE_PARALLEL_JOBS && \
         make install && cd $BUILD_DIR
 
-RUN cd $BUILD_DIR && wget ftp://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-$X264_VER-stable.tar.bz2 && \
+RUN cd $BUILD_DIR && wget -q ftp://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-$X264_VER-stable.tar.bz2 && \
         tar jxf x264-snapshot-$X264_VER-stable.tar.bz2 && \
         cd x264-snapshot-$X264_VER-stable && \
         ./configure && make -j$MAKE_PARALLEL_JOBS && make install
@@ -95,7 +95,7 @@ RUN cd $BUILD_DIR && wget ftp://ftp.videolan.org/pub/videolan/x264/snapshots/x26
 RUN cp $BUILD_DIR/x264-snapshot-$X264_VER-stable/libx264.a /usr/local/lib && \
         cp $BUILD_DIR/x264-snapshot-$X264_VER-stable/x264_config.h $BUILD_DIR/x264-snapshot-$X264_VER-stable/x264.h /usr/local/include 
 
-RUN cd $BUILD_DIR && wget https://bitbucket.org/multicoreware/x265/downloads/x265_$X265_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q https://bitbucket.org/multicoreware/x265/downloads/x265_$X265_VER.tar.gz && \
         tar zxf x265_$X265_VER.tar.gz && \
         cd x265_$X265_VER/build/linux && \
         cmake ../../source && \
@@ -105,64 +105,64 @@ RUN cd $BUILD_DIR && wget https://bitbucket.org/multicoreware/x265/downloads/x26
         cp ./8bit/x265_config.h /usr/local/include/ && \
         cp $BUILD_DIR/x265_$X265_VER/source/x265.h /usr/local/include 
 
-RUN cd $BUILD_DIR && wget https://github.com/mstorsjo/fdk-aac/archive/v$FDK_ACC_VER.tar.gz -O fdk-aac-v$FDK_ACC_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q https://github.com/mstorsjo/fdk-aac/archive/v$FDK_ACC_VER.tar.gz -O fdk-aac-v$FDK_ACC_VER.tar.gz && \
         tar zxf fdk-aac-v$FDK_ACC_VER.tar.gz && \
         cd fdk-aac-$FDK_ACC_VER && \
         ./autogen.sh && \
         ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
-RUN cd $BUILD_DIR && wget http://sourceforge.net/projects/lame/files/lame/3.99/lame-$LAME_VER.tar.gz \
+RUN cd $BUILD_DIR && wget -q http://sourceforge.net/projects/lame/files/lame/3.99/lame-$LAME_VER.tar.gz \
         && tar zxf lame-$LAME_VER.tar.gz \
         && cd lame-$LAME_VER \
         && ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install
 
-RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/ogg/libogg-$OGG_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q http://downloads.xiph.org/releases/ogg/libogg-$OGG_VER.tar.gz && \
         tar zxf libogg-$OGG_VER.tar.gz && \
         cd libogg-$OGG_VER && \
         ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install
 
-RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/vorbis/libvorbis-$LIBVORBIS_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q http://downloads.xiph.org/releases/vorbis/libvorbis-$LIBVORBIS_VER.tar.gz && \
         tar zxf libvorbis-$LIBVORBIS_VER.tar.gz  && \
         cd libvorbis-$LIBVORBIS_VER && \
         ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
-RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/theora/libtheora-$LIBTHEORA_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q http://downloads.xiph.org/releases/theora/libtheora-$LIBTHEORA_VER.tar.gz && \
         tar zxf libtheora-$LIBTHEORA_VER.tar.gz  && \
         cd libtheora-$LIBTHEORA_VER && \
         ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
-RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/speex/speex-$SPEEX_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q http://downloads.xiph.org/releases/speex/speex-$SPEEX_VER.tar.gz && \
         tar zxf speex-$SPEEX_VER.tar.gz  && \
         cd speex-$SPEEX_VER && \
         ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
-RUN cd $BUILD_DIR && wget http://downloads.xvid.org/downloads/xvidcore-$XVIDCORE_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q http://downloads.xvid.org/downloads/xvidcore-$XVIDCORE_VER.tar.gz && \
         tar zxf xvidcore-$XVIDCORE_VER.tar.gz  && \
         cd xvidcore/build/generic && \
         ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
-RUN cd $BUILD_DIR && wget http://sourceforge.net/projects/opencore-amr/files/opencore-amr/opencore-amr-$OPENCORE_AMR_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q http://sourceforge.net/projects/opencore-amr/files/opencore-amr/opencore-amr-$OPENCORE_AMR_VER.tar.gz && \
         tar zxf opencore-amr-$OPENCORE_AMR_VER.tar.gz && \
         cd opencore-amr-$OPENCORE_AMR_VER && \
         ./configure --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install
 
-RUN cd $BUILD_DIR && wget https://github.com/uclouvain/openjpeg/archive/v$OPENJPEG_VER.tar.gz -O openjpeg-v$OPENJPEG_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q https://github.com/uclouvain/openjpeg/archive/v$OPENJPEG_VER.tar.gz -O openjpeg-v$OPENJPEG_VER.tar.gz && \
         tar zxf openjpeg-v$OPENJPEG_VER.tar.gz && \
         cd openjpeg-$OPENJPEG_VER/ && \
         cmake -G "Unix Makefiles" && \
         make -j$MAKE_PARALLEL_JOBS && make install
 
-RUN cd $BUILD_DIR && wget https://github.com/webmproject/libvpx/archive/v$LIBVPX_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q https://github.com/webmproject/libvpx/archive/v$LIBVPX_VER.tar.gz && \
         tar zxf v$LIBVPX_VER.tar.gz && \
         cd libvpx-$LIBVPX_VER/ && \
         ./configure --enable-pic --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
-RUN cd $BUILD_DIR && wget https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -O vmaf-$VMAF_VER.zip && \
+RUN cd $BUILD_DIR && wget -q https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -O vmaf-$VMAF_VER.zip && \
         unzip vmaf-$VMAF_VER.zip && \
         cd vmaf-$VMAF_VER && \ 
         make -j$MAKE_PARALLEL_JOBS && make install 
 
-RUN cd $BUILD_DIR && wget https://github.com/opencv/opencv/archive/$OPENCV_VER.tar.gz -O opencv-$OPENCV_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q https://github.com/opencv/opencv/archive/$OPENCV_VER.tar.gz -O opencv-$OPENCV_VER.tar.gz && \
         tar zxf opencv-$OPENCV_VER.tar.gz && \
         cd opencv-$OPENCV_VER && \
         rm -f CMakeCache.txt && \
@@ -172,10 +172,10 @@ RUN cd $BUILD_DIR && wget https://github.com/opencv/opencv/archive/$OPENCV_VER.t
         make -j$MAKE_PARALLEL_JOBS && make install
 
 # build ffmpeg with transform360
-RUN cd $BUILD_DIR && wget http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz && \
+RUN cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz && \
         tar zxf ffmpeg-$FFMPEG_VER.tar.gz && \
         cd ffmpeg-$FFMPEG_VER && \
-	wget https://github.com/facebook/transform360/archive/$TRANSFORM360_VER.zip -O transform360-$TRANSFORM360_VER.zip && \
+	wget -q https://github.com/facebook/transform360/archive/$TRANSFORM360_VER.zip -O transform360-$TRANSFORM360_VER.zip && \
         unzip transform360-$TRANSFORM360_VER.zip && \
         cd transform360-$TRANSFORM360_VER/Transform360 && \
         rm -f CMakeCache.txt && \
