@@ -12,7 +12,7 @@ If you use a newer FFmpeg version, you may need to modify these.
 ## When should one use this build process?
 If you do not **absolutely have to** produce FFmpeg binaries with no external deps, you should NOT be using this build process.
 While static linkage has its advantages, it also has several shortcomings, namely:
-- It needs to be updated every time new versions of the libraries/components it depends on are released [this is not only important due to bugfixes and added features but also from a security perspective] 
+- Every time new versions of the libraries/components your project depends on are released [this is not only important due to bugfixes and added features but also from a security perspective], you must build a new version 
 - It results in much bigger binaries
 
 In my case, I had to build FFmpeg this way because resulting binaries had to run on both Ubuntu 12.04 and Ubuntu 16.04 and updating libstdc++ on the 12.04 instance was not feasible whereas the build process [due to several mandatory deps] required a g++ version that fully supports the c11 standard, which, the g++ provided in the official Ubuntu repos [version 4.6] did not.
