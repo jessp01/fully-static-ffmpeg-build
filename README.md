@@ -16,7 +16,10 @@ While static linkage has its advantages, it also has several shortcomings, namel
 - It results in much bigger binaries
 
 In my case, I had to build FFmpeg this way because the resulting binaries had to run on both Ubuntu 12.04 and Ubuntu 16.04 and updating libstdc++ on the 12.04 instance was not feasible whereas the build process [due to several mandatory deps] required a g++ version that fully supports the c11 standard, which, the g++ provided in the official Ubuntu repos [version 4.6] did not.
-This is also why Ubuntu 12.04 is used as the base image. The same process should work on other Debian and Debian based distros. 
+This is also why Ubuntu 12.04 is used as the base image. 
+
+The same process should work on other Debian and Debian based distros.
+ 
 Depending on your distro of choice, you may not need to compile some of these deps yourself but rather, install the deb packages from the official repo.
 
 ## What will this build produce?
