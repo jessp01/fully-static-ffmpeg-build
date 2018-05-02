@@ -186,7 +186,7 @@ RUN cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.g
 	dpkg -L libopencv-core-dev && \
         # extract libstdc++ and opencv objects
         #for A in /usr/local/lib/libopencv_*.a;do ar x $A;done && \
-        for A in /usr/lib/x86_64-linux-gnu/libopencv_*.a;do ar x $A;done && \
+        for A in /usr/lib/libopencv_*.a;do ar x $A;done && \
         ar x /usr/lib/gcc/x86_64-linux-gnu/$G_PLUS_PLUS_VER/libstdc++.a && \
 	ar x /usr/lib/x86_64-linux-gnu/libm.a && \
         cd $BUILD_DIR/ffmpeg-$FFMPEG_VER/transform360-$TRANSFORM360_VER/Transform360 && \
