@@ -29,7 +29,7 @@ FFmpeg is built with the following codecs/filters/options:
 
 - [x264](https://www.videolan.org/developers/x264.html)
 - [x265](x265.org)
-- [FDK](https://github.com/mstorsjo/fdk-aac)
+- [FDK-AAC](https://github.com/mstorsjo/fdk-aac)
 - [LAME](lame.sourceforge.net)
 - [Ogg](https://xiph.org/ogg)
 - [Vorbis](https://xiph.org/vorbis)
