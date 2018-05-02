@@ -24,6 +24,7 @@ ENV VMAF_VER master
 ENV TRANSFORM360_VER master
 ENV OPENCV_VER 2.4.13.6
 ENV FFMPEG_VER 4.0
+ENV FFMPEG_PREFIX /opt/kaltura/ffmpeg-$FFMPEG_VER
 ENV BUILD_DIR /tmp/build
 
 RUN mkdir -p $BUILD_DIR
@@ -107,42 +108,42 @@ RUN cd $BUILD_DIR && wget https://github.com/mstorsjo/fdk-aac/archive/v$FDK_ACC_
         tar zxf fdk-aac-v$FDK_ACC_VER.tar.gz && \
         cd fdk-aac-$FDK_ACC_VER && \
         ./autogen.sh && \
-        ./configure --enable-static && make && make install 
+        ./configure --enable-static --disable-shared && make && make install 
 
 RUN cd $BUILD_DIR && wget http://sourceforge.net/projects/lame/files/lame/3.99/lame-$LAME_VER.tar.gz \
         && tar zxf lame-$LAME_VER.tar.gz \
         && cd lame-$LAME_VER \
-        && ./configure --enable-static && make && make install
+        && ./configure --enable-static --disable-shared && make && make install
 
 RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/ogg/libogg-$OGG_VER.tar.gz && \
         tar zxf libogg-$OGG_VER.tar.gz && \
         cd libogg-$OGG_VER && \
-        ./configure --enable-static && make && make install
+        ./configure --enable-static --disable-shared && make && make install
 
 RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/vorbis/libvorbis-$LIBVORBIS_VER.tar.gz && \
         tar zxf libvorbis-$LIBVORBIS_VER.tar.gz  && \
         cd libvorbis-$LIBVORBIS_VER && \
-        ./configure --enable-static && make && make install 
+        ./configure --enable-static --disable-shared && make && make install 
 
 RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/theora/libtheora-$LIBTHEORA_VER.tar.gz && \
         tar zxf libtheora-$LIBTHEORA_VER.tar.gz  && \
         cd libtheora-$LIBTHEORA_VER && \
-        ./configure --enable-static && make && make install 
+        ./configure --enable-static --disable-shared && make && make install 
 
 RUN cd $BUILD_DIR && wget http://downloads.xiph.org/releases/speex/speex-$SPEEX_VER.tar.gz && \
         tar zxf speex-$SPEEX_VER.tar.gz  && \
         cd speex-$SPEEX_VER && \
-        ./configure --enable-static && make && make install 
+        ./configure --enable-static --disable-shared && make && make install 
 
 RUN cd $BUILD_DIR && wget http://downloads.xvid.org/downloads/xvidcore-$XVIDCORE_VER.tar.gz && \
         tar zxf xvidcore-$XVIDCORE_VER.tar.gz  && \
         cd xvidcore/build/generic && \
-        ./configure --enable-static && make && make install 
+        ./configure --enable-static --disable-shared && make && make install 
 
 RUN cd $BUILD_DIR && wget http://sourceforge.net/projects/opencore-amr/files/opencore-amr/opencore-amr-$OPENCORE_AMR_VER.tar.gz && \
         tar zxf opencore-amr-$OPENCORE_AMR_VER.tar.gz && \
         cd opencore-amr-$OPENCORE_AMR_VER && \
-        ./configure --enable-static && make && make install
+        ./configure --enable-static --disable-shared && make && make install
 
 RUN cd $BUILD_DIR && wget https://github.com/uclouvain/openjpeg/archive/v$OPENJPEG_VER.tar.gz -O openjpeg-v$OPENJPEG_VER.tar.gz && \
         tar zxf openjpeg-v$OPENJPEG_VER.tar.gz && \
@@ -153,7 +154,7 @@ RUN cd $BUILD_DIR && wget https://github.com/uclouvain/openjpeg/archive/v$OPENJP
 RUN cd $BUILD_DIR && wget https://github.com/webmproject/libvpx/archive/v$LIBVPX_VER.tar.gz && \
         tar zxf v$LIBVPX_VER.tar.gz && \
         cd libvpx-$LIBVPX_VER/ && \
-        ./configure --enable-pic --enable-static && make && make install 
+        ./configure --enable-pic --enable-static --disable-shared && make && make install 
 
 RUN cd $BUILD_DIR && wget https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -O vmaf-$VMAF_VER.zip && \
         unzip vmaf-$VMAF_VER.zip && \
@@ -192,13 +193,14 @@ RUN cd $BUILD_DIR && wget http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz &
         cp $BUILD_DIR/vf_transform360.c libavfilter/ && \
 	cp $BUILD_DIR/Makefile.transform360.patch libavfilter && patch -p0 < libavfilter/Makefile.transform360.patch && \ 
 	cp $BUILD_DIR/allfilters.c.transform360.patch libavfilter && patch -p0 < libavfilter/allfilters.c.transform360.patch && \ 
-        ./configure --prefix=/opt/kaltura/ffmpeg-$FFMPEG_VER --libdir=/opt/kaltura/ffmpeg-$FFMPEG_VER/lib --shlibdir=/opt/kaltura/ffmpeg-$FFMPEG_VER/lib --extra-cflags='-static -static-libstdc++ -static-libgcc -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic -fPIC' --pkg-config-flags=--static --enable-gpl --enable-nonfree --enable-version3 --disable-devices --enable-indev=lavfi --enable-avfilter --enable-filter=movie --enable-postproc --enable-pthreads --enable-swscale --disable-bzlib --enable-libx264 --enable-libx265 --enable-libvpx --enable-libfdk-aac --enable-libmp3lame --enable-libgsm --enable-libtheora --enable-libvorbis --enable-libspeex --enable-libxvid --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libass --enable-libfreetype --enable-fontconfig --enable-avisynth --disable-autodetect --disable-vdpau --enable-libopencv --extra-libs='-lm -ldl -lpthread -lz -lrt -lTransform360' --enable-libvmaf --extra-cxxflags='-static -static-libstdc++ -static-libgcc' --extra-ldflags='-static -static-libstdc++ -static-libgcc' && \
+        ./configure --prefix=$FFMPEG_PREFIX --libdir=$FFMPEG_PREFIX/lib --shlibdir=$FFMPEG_PREFIX/lib --extra-cflags='-static -static-libstdc++ -static-libgcc -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic -fPIC' --pkg-config-flags=--static --enable-gpl --enable-nonfree --enable-version3 --disable-devices --enable-indev=lavfi --enable-avfilter --enable-filter=movie --enable-postproc --enable-pthreads --enable-swscale --disable-bzlib --enable-libx264 --enable-libx265 --enable-libvpx --enable-libfdk-aac --enable-libmp3lame --enable-libgsm --enable-libtheora --enable-libvorbis --enable-libspeex --enable-libxvid --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libass --enable-libfreetype --enable-fontconfig --enable-avisynth --disable-autodetect --disable-vdpau --enable-libopencv --extra-libs='-lm -ldl -lpthread -lz -lrt -lTransform360' --enable-libvmaf --extra-cxxflags='-static -static-libstdc++ -static-libgcc' --extra-ldflags='-static -static-libstdc++ -static-libgcc' && \
         make && \
         make install
 
 # test ffmpeg
-RUN /opt/kaltura/ffmpeg-$FFMPEG_VER/bin/ffmpeg -filters | grep 360
-RUN /opt/kaltura/ffmpeg-$FFMPEG_VER/bin/ffmpeg -h encoder=libx265 2>/dev/null | grep pixel
-RUN /opt/kaltura/ffmpeg-$FFMPEG_VER/bin/ffmpeg -h encoder=libx264 2>/dev/null | grep pixel
+RUN ldd $FFMPEG_PREFIX/bin/ffmpeg | grep 'not a dynamic executable'
+RUN $FFMPEG_PREFIX/bin/ffmpeg -filters | grep 360
+RUN $FFMPEG_PREFIX/bin/ffmpeg -h encoder=libx265 2>/dev/null | grep pixel
+RUN $FFMPEG_PREFIX/bin/ffmpeg -h encoder=libx264 2>/dev/null | grep pixel
 # archive
-RUN cd /opt/kaltura && tar zcf ffmpeg-$FFMPEG_VER.tar.gz ffmpeg-$FFMPEG_VER
+RUN cd / tar zcf ffmpeg-$FFMPEG_VER.tar.gz $FFMPEG_PREFIX
