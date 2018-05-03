@@ -22,7 +22,6 @@ ENV LIBVPX_VER 1.7.0
 ENV VMAF_VER master
 # sadly, this repo has no tags or branches so we're forced to go with master
 ENV TRANSFORM360_VER master
-ENV OPENCV_VER 2.4.13.6
 ENV FFMPEG_VER 4.0
 ENV FFMPEG_PREFIX /opt/kaltura/ffmpeg-$FFMPEG_VER
 ENV BUILD_DIR /tmp/build
@@ -38,7 +37,7 @@ COPY libenca.a /usr/lib/x86_64-linux-gnu/libenca.a
 RUN apt-get update -qq && \
         apt-get install software-properties-common python-software-properties -y && \
         add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
-        apt-get update 
+        apt-get update -qq 
 
 RUN apt-get install -y \
         g++-$G_PLUS_PLUS_VER \
