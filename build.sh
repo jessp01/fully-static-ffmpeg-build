@@ -138,6 +138,7 @@ cd $BUILD_DIR && wget -q https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -
         make -j$MAKE_PARALLEL_JOBS && make install 
 
 # build ffmpeg with transform360
+set -x
 cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz && \
         tar zxf ffmpeg-$FFMPEG_VER.tar.gz && \
         cd ffmpeg-$FFMPEG_VER && \
@@ -158,7 +159,7 @@ cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz &&
         ar cr libTransform360.a  CMakeFiles/Transform360.dir/Library/VideoFrameTransform.cpp.o CMakeFiles/Transform360.dir/Library/VideoFrameTransformHandler.cpp.o $BUILD_DIR/objects/*o && \
         make install && cd $BUILD_DIR/ffmpeg-$FFMPEG_VER && \
         cp $BUILD_DIR/vf_transform360.c libavfilter/ && \
-	cp $BUILD_DIR/Makefile.transform360.patch libavfilter && patch -p0 < libavfilter/Makefile.transform360.patch && \ 
+	cp $BUILD_DIR/Makefile.transform360.patch libavfilter && patch -p0 < libavfilter/Makefile.transform360.patch && \
 	cp $BUILD_DIR/allfilters.c.transform360.patch libavfilter && patch -p0 < libavfilter/allfilters.c.transform360.patch && \
         ./configure --prefix=$FFMPEG_PREFIX --libdir=$FFMPEG_PREFIX/lib --shlibdir=$FFMPEG_PREFIX/lib \
 --extra-cflags='-static -static-libstdc++ -static-libgcc -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic -fPIC' \
