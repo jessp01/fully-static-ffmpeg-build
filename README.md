@@ -18,7 +18,7 @@ While static linkage has its advantages, it also has several shortcomings, namel
 In my case, I had to build FFmpeg this way because the resulting binaries had to run on both Ubuntu 12.04 and Ubuntu 16.04 and updating libstdc++ on the 12.04 instance was not feasible whereas the build process [due to several mandatory deps] required a g++ version that fully supports the c11 standard, which, the g++ provided in the official Ubuntu repos [version 4.6] did not.
 This is also why Ubuntu 12.04 is used as the base image. 
 
-The same process should work on other Debian and Debian based distros.
+The same general process should work on other Debian and Debian based distros, though minor adjustments may be required.
  
 Depending on your distro of choice, you may not have to build some of these deps yourself [like Cmake and nasm] but rather, install the deb packages from the official repo.
 
@@ -60,6 +60,9 @@ Build the container with:
 # docker build -t static-ffmpeg /path/to/fully-static-ffmpeg-build/
 ```
 The resulting binaries will be installed under `/opt/kaltura/ffmpeg-$FFMPEG_VER` inside the container.
+
+**NOTE: If you don't wish to build inside a Docker container, the `build.sh` script can also be invoked independently on any suitable machine. 
+The process was tested with Ubuntu 12.04 but may work out of the box [or with minor changes] on other Debian based distros**
 
 After running a few very basic tests, the FFmpeg basedir is also archived under /tmp/build/ffmpeg-$FFMPEG_VER.tar.gz.
 
