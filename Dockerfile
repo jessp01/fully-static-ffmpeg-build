@@ -186,9 +186,45 @@ RUN cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.g
         cp $BUILD_DIR/vf_transform360.c libavfilter/ && \
 	cp $BUILD_DIR/Makefile.transform360.patch libavfilter && patch -p0 < libavfilter/Makefile.transform360.patch && \ 
 	cp $BUILD_DIR/allfilters.c.transform360.patch libavfilter && patch -p0 < libavfilter/allfilters.c.transform360.patch && \
-        ./configure --prefix=$FFMPEG_PREFIX --libdir=$FFMPEG_PREFIX/lib --shlibdir=$FFMPEG_PREFIX/lib --extra-cflags='-static -static-libstdc++ -static-libgcc -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic -fPIC' --pkg-config-flags=--static --enable-ffplay --enable-gpl --enable-nonfree --enable-version3 --disable-devices --enable-indev=lavfi --enable-avfilter --enable-filter=movie --enable-postproc --enable-pthreads --enable-swscale --disable-bzlib --enable-libx264 --enable-libx265 --enable-libvpx --enable-libfdk-aac --enable-libmp3lame --enable-libgsm --enable-libtheora --enable-libvorbis --enable-libspeex --enable-libxvid --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libass --enable-libfreetype --enable-fontconfig --enable-avisynth --disable-autodetect --disable-vdpau --enable-libopencv --extra-libs='-lm -ldl -lpthread -lz -lrt -lTransform360' --enable-libvmaf --extra-cxxflags='-static -static-libstdc++ -static-libgcc' --extra-ldflags='-static -static-libstdc++ -static-libgcc' && \
-        make && \
-        make install
+        ./configure --prefix=$FFMPEG_PREFIX --libdir=$FFMPEG_PREFIX/lib --shlibdir=$FFMPEG_PREFIX/lib \
+--extra-cflags='-static -static-libstdc++ -static-libgcc -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic -fPIC' \
+--extra-cxxflags='-static -static-libstdc++ -static-libgcc' \
+--extra-ldflags='-static -static-libstdc++ -static-libgcc' \
+--pkg-config-flags=--static \
+--enable-ffplay \
+--enable-gpl \
+--enable-nonfree \
+--enable-version3 \
+--enable-indev=lavfi \
+--enable-avfilter \
+--enable-filter=movie \
+--enable-postproc \
+--enable-pthreads \
+--enable-swscale \
+--enable-libx264 \
+--enable-libx265 \
+--enable-libvpx \
+--enable-libfdk-aac \
+--enable-libmp3lame \
+--enable-libgsm \
+--enable-libtheora \
+--enable-libvorbis \
+--enable-libspeex \
+--enable-libxvid \
+--enable-libopencore-amrnb \
+--enable-libopencore-amrwb \
+--enable-libopenjpeg \
+--enable-libass \
+--enable-libfreetype \
+--enable-fontconfig \
+--enable-avisynth \
+--disable-autodetect \
+--disable-vdpau \
+--enable-libopencv \
+--extra-libs='-lm -ldl -lpthread -lz -lrt -lTransform360' \
+--enable-libvmaf && \
+make && \
+make install
 
 # test ffmpeg
 RUN ldd $FFMPEG_PREFIX/bin/ffmpeg | grep 'not a dynamic executable'
