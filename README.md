@@ -38,9 +38,13 @@ FFmpeg is built with the following codecs/filters/options:
 - [OpenCore AMR - Adaptive Multi Rate Narrowband and Wideband](http://sourceforge.net/projects/opencore-amr)
 - [OpenJPEG](www.openjpeg.org)
 - [VPX](https://github.com/webmproject/libvpx)
+- [GSM](http://www.quut.com/gsm/)
+- [ASS](http://code.google.com/p/libass/)
+- [FreeType](http://www.freetype.org)
 - [OpenCV](https://opencv.org)
 - [VAMF](https://github.com/Netflix/vmaf)
 - [Facebook Transform360](https://github.com/facebook/transform360)
+
 
 The versions for these deps are set as ENV vars in the beginning of the Dockerfile so fetching, building and linking against different versions should be relatively painless [unless it fails, of course:)].
 
@@ -52,7 +56,7 @@ For more info, see [FFmpeg License and Legal Considerations](https://ffmpeg.org/
 ## Building
 The process is the same as with any other Dockerfile.
 Build the container with:
-```
+```sh
 # docker build -t static-ffmpeg /path/to/fully-static-ffmpeg-build/
 ```
 The resulting binaries will be installed under `/tmp/build/ffmpeg-$FFMPEG_VER` inside the container.
