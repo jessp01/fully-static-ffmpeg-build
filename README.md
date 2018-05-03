@@ -59,6 +59,10 @@ Build the container with:
 ```sh
 # docker build -t static-ffmpeg /path/to/fully-static-ffmpeg-build/
 ```
-The resulting binaries will be installed under `/tmp/build/ffmpeg-$FFMPEG_VER` inside the container.
+The resulting binaries will be installed under `/opt/kaltura/ffmpeg-$FFMPEG_VER` inside the container.
+
+After running a few very basic tests, the FFmpeg basedir is also archived under /tmp/build/ffmpeg-$FFMPEG_VER.tar.gz.
+
 Of course, you're free to change the prefix or anything else to suit your particular needs.
+
 
