@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jessp01/fully-static-ffmpeg-build.svg?branch=master)](https://travis-ci.org/jessp01/fully-static-ffmpeg-build)
+
 # Abstract
 
 The Dockerfile included in this repo uses an Ubuntu 12.04 base image to build statically linked FFmpeg binaries [ffmpeg and ffprobe].
