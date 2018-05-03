@@ -48,11 +48,6 @@ FFmpeg is built with the following codecs/filters/options:
 
 The versions for these deps are set as ENV vars in `env.rc` so fetching, building and linking against different versions should be relatively painless [unless it fails, of course:)].
 
-## Important note about distributing the resulting binaries
-Legally, you are NOT, and therefore, should NOT, distribute the resulting binaries.
-The FFmpeg configure command in the Dockerfile includes the `--enable-gpl` and `--enable-nonfree` configuration options and FFmpeg binaries whose build process required these flags cannot be re-distributed.
-For more info, see [FFmpeg License and Legal Considerations](https://ffmpeg.org/legal.html).
-
 ## Building
 The process is the same as with any other Dockerfile.
 Build the container with:
@@ -67,5 +62,10 @@ The process was tested with Ubuntu 12.04 but may work out of the box [or with mi
 After running a few very basic tests, the FFmpeg basedir is also archived under /tmp/build/ffmpeg-$FFMPEG_VER.tar.gz.
 
 Of course, you're free to change the prefix or anything else to suit your particular needs.
+
+## Important note about distributing the resulting binaries
+Legally, you are NOT, and therefore, should NOT, distribute the resulting binaries.
+The FFmpeg configure command in the Dockerfile includes the `--enable-gpl` and `--enable-nonfree` configuration options and FFmpeg binaries whose build process required these flags cannot be re-distributed.
+For more info, see [FFmpeg License and Legal Considerations](https://ffmpeg.org/legal.html).
 
 
