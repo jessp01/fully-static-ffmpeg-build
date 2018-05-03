@@ -160,17 +160,8 @@ RUN cd $BUILD_DIR && wget -q https://github.com/webmproject/libvpx/archive/v$LIB
 
 RUN cd $BUILD_DIR && wget -q https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -O vmaf-$VMAF_VER.zip && \
         unzip vmaf-$VMAF_VER.zip && \
-        cd vmaf-$VMAF_VER && \ 
+        cd vmaf-$VMAF_VER && \
         make -j$MAKE_PARALLEL_JOBS && make install 
-
-#RUN cd $BUILD_DIR && wget -q https://github.com/opencv/opencv/archive/$OPENCV_VER.tar.gz -O opencv-$OPENCV_VER.tar.gz && \
-#        tar zxf opencv-$OPENCV_VER.tar.gz && \
-#        cd opencv-$OPENCV_VER && \
-#        rm -f CMakeCache.txt && \
-#        mkdir buildme && \
-#        cd buildme && \
-#        cmake $BUILD_DIR/opencv-$OPENCV_VER/ -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=OFF -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON && \
-#        make -j$MAKE_PARALLEL_JOBS && make install
 
 # build ffmpeg with transform360
 RUN cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz && \
@@ -185,7 +176,6 @@ RUN cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.g
         cd $BUILD_DIR/objects && \
 	dpkg -L libopencv-core-dev && \
         # extract libstdc++ and opencv objects
-        #for A in /usr/local/lib/libopencv_*.a;do ar x $A;done && \
         for A in /usr/lib/libopencv_*.a;do ar x $A;done && \
         ar x /usr/lib/gcc/x86_64-linux-gnu/$G_PLUS_PLUS_VER/libstdc++.a && \
 	ar x /usr/lib/x86_64-linux-gnu/libm.a && \
@@ -196,7 +186,7 @@ RUN cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.g
         make install && cd $BUILD_DIR/ffmpeg-$FFMPEG_VER && \
         cp $BUILD_DIR/vf_transform360.c libavfilter/ && \
 	cp $BUILD_DIR/Makefile.transform360.patch libavfilter && patch -p0 < libavfilter/Makefile.transform360.patch && \ 
-	cp $BUILD_DIR/allfilters.c.transform360.patch libavfilter && patch -p0 < libavfilter/allfilters.c.transform360.patch && \ 
+	cp $BUILD_DIR/allfilters.c.transform360.patch libavfilter && patch -p0 < libavfilter/allfilters.c.transform360.patch && \
         ./configure --prefix=$FFMPEG_PREFIX --libdir=$FFMPEG_PREFIX/lib --shlibdir=$FFMPEG_PREFIX/lib --extra-cflags='-static -static-libstdc++ -static-libgcc -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic -fPIC' --pkg-config-flags=--static --enable-ffplay --enable-gpl --enable-nonfree --enable-version3 --disable-devices --enable-indev=lavfi --enable-avfilter --enable-filter=movie --enable-postproc --enable-pthreads --enable-swscale --disable-bzlib --enable-libx264 --enable-libx265 --enable-libvpx --enable-libfdk-aac --enable-libmp3lame --enable-libgsm --enable-libtheora --enable-libvorbis --enable-libspeex --enable-libxvid --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libass --enable-libfreetype --enable-fontconfig --enable-avisynth --disable-autodetect --disable-vdpau --enable-libopencv --extra-libs='-lm -ldl -lpthread -lz -lrt -lTransform360' --enable-libvmaf --extra-cxxflags='-static -static-libstdc++ -static-libgcc' --extra-ldflags='-static -static-libstdc++ -static-libgcc' && \
         make && \
         make install
@@ -207,4 +197,4 @@ RUN $FFMPEG_PREFIX/bin/ffmpeg -filters | grep 360
 RUN $FFMPEG_PREFIX/bin/ffmpeg -h encoder=libx265 2>/dev/null | grep pixel
 RUN $FFMPEG_PREFIX/bin/ffmpeg -h encoder=libx264 2>/dev/null | grep pixel
 # archive
-RUN cd / tar zcf ffmpeg-$FFMPEG_VER.tar.gz $FFMPEG_PREFIX
+RUN cd / tar zcf $BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz $FFMPEG_PREFIX && echo "Final archive created: $BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz" 
