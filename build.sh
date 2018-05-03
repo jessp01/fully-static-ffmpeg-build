@@ -138,7 +138,6 @@ cd $BUILD_DIR && wget -q https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -
         make -j$MAKE_PARALLEL_JOBS && make install 
 
 # build ffmpeg with transform360
-set -x
 cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz && \
         tar zxf ffmpeg-$FFMPEG_VER.tar.gz && \
         cd ffmpeg-$FFMPEG_VER && \
