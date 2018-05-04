@@ -38,6 +38,7 @@ apt-get install -y -qq \
         libhdf5-serial-dev \
         libfreetype6-dev \
         liblapack-dev \
+	libssl-dev \
         python \
         python-setuptools \
         python-dev \
@@ -137,6 +138,11 @@ cd $BUILD_DIR && wget -q https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -
         cd vmaf-$VMAF_VER && \
         make -j$MAKE_PARALLEL_JOBS && make install 
 
+cd $BUILD_DIR && wget https://rtmpdump.mplayerhq.hu/download/rtmpdump-$LIBRTMP_VER.tgz && \
+	tar zxf rtmpdump-$LIBRTMP_VER.tgz && \
+	cd rtmpdump-$LIBRTMP_VER/librtmp && \
+	make install_base
+
 # build ffmpeg with transform360
 cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz && \
         tar zxf ffmpeg-$FFMPEG_VER.tar.gz && \
@@ -196,6 +202,8 @@ cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz &&
 --disable-autodetect \
 --disable-vdpau \
 --enable-libopencv \
+--enable-openssl \
+--enable-librtmp \
 --enable-libvmaf && \
 make && \
 make install
