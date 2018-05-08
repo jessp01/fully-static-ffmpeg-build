@@ -6,6 +6,7 @@ The Dockerfile included in this repo uses an Ubuntu 12.04 base image to build st
 This was tested using FFmpeg 4.0 [current stable version] but the general process will probably work with future FFmpeg versions.
 
 Note that this repo includes two patches required in order to link against Facebook's [Transform360 library](https://github.com/facebook/transform360):
+
 - Makefile.transform360.patch
 - allfilters.c.transform360.patch
 
@@ -14,6 +15,7 @@ If you use a newer FFmpeg version, you may need to modify these.
 ## When should one use this build process?
 If you do not **absolutely have to** produce FFmpeg binaries with no external deps, you should NOT be using this build process.
 While static linkage has its advantages, it also has several shortcomings, namely:
+
 - Every time new versions of the libraries/components your project depends on are released [this is not only important due to bugfixes and added features but also from a security perspective], you must build a new version 
 - It results in much bigger binaries
 
@@ -40,7 +42,7 @@ FFmpeg is built with the following codecs/filters/options:
 - [OpenCore AMR - Adaptive Multi Rate Narrowband and Wideband](http://sourceforge.net/projects/opencore-amr)
 - [OpenJPEG](www.openjpeg.org)
 - [VPX](https://github.com/webmproject/libvpx)
-- [GSM](http://www.quut.com/gsm/)
+- [GSM](http://www.quut.com/gsm)
 - [ASS](http://code.google.com/p/libass/)
 - [FreeType](http://www.freetype.org)
 - [OpenCV](https://opencv.org)
@@ -62,7 +64,7 @@ The resulting binaries will be installed under `/opt/kaltura/ffmpeg-$FFMPEG_VER`
 > NOTE: If you don't wish to build inside a Docker container, the `build.sh` script can also be invoked independently on any suitable machine. 
 The process was tested with Ubuntu 12.04 but may work out of the box [or with minor changes] on other Debian based distros
 
-> If you wish to run build.sh outside a Docker container, make sure you copy `vf_transform360.c`, `Makefile.transform360.patch` and `allfilters.c.transform360.patch` to wherever the BUILD_DIR ENV var is set to [default is /tmp/build.
+> If you wish to run build.sh outside a Docker container, make sure you copy `vf_transform360.c`, `Makefile.transform360.patch` and `allfilters.c.transform360.patch` to wherever the `BUILD_DIR` ENV var is set to [default is /tmp/build].
 
 After running a few very basic tests, the FFmpeg basedir is also archived under /tmp/build/ffmpeg-$FFMPEG_VER.tar.gz.
 

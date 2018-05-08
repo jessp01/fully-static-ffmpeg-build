@@ -138,7 +138,7 @@ cd $BUILD_DIR && wget -q https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -
         cd vmaf-$VMAF_VER && \
         make -j$MAKE_PARALLEL_JOBS && make install 
 
-cd $BUILD_DIR && wget https://rtmpdump.mplayerhq.hu/download/rtmpdump-$LIBRTMP_VER.tgz && \
+cd $BUILD_DIR && wget -q https://rtmpdump.mplayerhq.hu/download/rtmpdump-$LIBRTMP_VER.tgz && \
 	tar zxf rtmpdump-$LIBRTMP_VER.tgz && \
 	cd rtmpdump-$LIBRTMP_VER/librtmp && \
 	make install_base
