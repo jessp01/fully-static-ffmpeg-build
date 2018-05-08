@@ -59,11 +59,24 @@ Build the container with:
 The resulting binaries will be installed under `/opt/kaltura/ffmpeg-$FFMPEG_VER` inside the container.
 
 **NOTE: If you don't wish to build inside a Docker container, the `build.sh` script can also be invoked independently on any suitable machine. 
-The process was tested with Ubuntu 12.04 but may work out of the box [or with minor changes] on other Debian based distros**
+The process was tested with Ubuntu 12.04 but may work out of the box [or with minor changes] on other Debian based distros
+
+If you wish to run build.sh outside a Docker container, make sure you copy `vf_transform360.c`, `Makefile.transform360.patch` and `allfilters.c.transform360.patch` to wherever the BUILD_DIR ENV var is set to [default is /tmp/build.**
 
 After running a few very basic tests, the FFmpeg basedir is also archived under /tmp/build/ffmpeg-$FFMPEG_VER.tar.gz.
 
 Of course, you're free to change the prefix or anything else to suit your particular needs.
+
+### Note about VMAF
+VMAF requires the PKL model files in order to run. These are deployed to /usr/local/share/model by default and are packaged into the /tmp/build/ffmpeg-$FFMPEG_VER.tar.gz archive. 
+
+If you wish to deploy them onto a different path, you will need to pass the `model_path` parameter when running your `ffmpeg` command. For instance, if you deployed the model dir to /home/jess/share/model, your ffmpeg command should include **-lavfi libvmaf="model_path=/home/jess/share/model/vmaf_v0.6.1.pkl"**. 
+
+See below example:
+
+```sh
+$ ffmpeg -i /path/to/first/mp4 -i /path/to/second/mp4 -lavfi libvmaf="model_path=/home/jess/share/model/vmaf_v0.6.1.pkl" -f null -t 3 -
+```
 
 ## Important note about distributing the resulting binaries
 Legally, you are NOT, and therefore, should NOT, distribute the resulting binaries.
