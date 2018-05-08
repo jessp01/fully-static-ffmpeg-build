@@ -76,7 +76,8 @@ If you wish to deploy them onto a different path, you will need to pass the `mod
 See below example:
 
 ```sh
-$ ffmpeg -i /path/to/first/mp4 -i /path/to/second/mp4 -lavfi libvmaf="model_path=/home/jess/share/model/vmaf_v0.6.1.pkl" -f null -t 3 -
+$ ffmpeg -i /path/to/first/mp4 -i /path/to/second/mp4 -lavfi \
+libvmaf="model_path=/home/jess/share/model/vmaf_v0.6.1.pkl" -f null -t 3 -
 ```
 
 For more FFmpeg VMAF options, see https://ffmpeg.org/ffmpeg-filters.html#toc-libvmaf.libvmaf
