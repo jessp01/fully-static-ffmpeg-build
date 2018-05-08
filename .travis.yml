@@ -5,7 +5,8 @@ services:
 
 script:
     - docker build -t static-ffmpeg-ci .
+
 notifications:
-    email:
-        recipients:
-            - jess.portnoy@kaltura.com
+  email:
+    recipients:
+      - jess.portnoy@kaltura.com
