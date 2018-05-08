@@ -216,7 +216,7 @@ $FFMPEG_PREFIX/bin/ffmpeg -h encoder=libx265 2>/dev/null | grep pixel
 $FFMPEG_PREFIX/bin/ffmpeg -h encoder=libx264 2>/dev/null | grep pixel
 # test VMAF
 if [ -r $BUILD_DIR/test/big_buck.mp4 ];then
-     $FFMPEG_PREFIX/bin/ffmpeg -i $BUILD_DIR/big_buck.mp4 -i $BUILD_DIR/big_buck.mp4 -lavfi libvmaf -f null -t 3 -
+     $FFMPEG_PREFIX/bin/ffmpeg -i $BUILD_DIR/test/big_buck.mp4 -i $BUILD_DIR/big_buck.mp4 -lavfi libvmaf -f null -t 3 -
 fi
 # archive
 cd / tar zcf $BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz $FFMPEG_PREFIX usr/local/share/model && echo "Final archive created: $BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz" 
