@@ -44,7 +44,7 @@ FFmpeg is built with the following codecs/filters/options:
 - [ASS](http://code.google.com/p/libass/)
 - [FreeType](http://www.freetype.org)
 - [OpenCV](https://opencv.org)
-- [VAMF](https://github.com/Netflix/vmaf)
+- [VMAF](https://github.com/Netflix/vmaf)
 - [Facebook Transform360](https://github.com/facebook/transform360)
 
 
@@ -77,6 +77,8 @@ See below example:
 ```sh
 $ ffmpeg -i /path/to/first/mp4 -i /path/to/second/mp4 -lavfi libvmaf="model_path=/home/jess/share/model/vmaf_v0.6.1.pkl" -f null -t 3 -
 ```
+
+For more FFmpeg VMAF options, see https://ffmpeg.org/ffmpeg-filters.html#toc-libvmaf.libvmaf
 
 ## Important note about distributing the resulting binaries
 Legally, you are NOT, and therefore, should NOT, distribute the resulting binaries.
