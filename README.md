@@ -46,6 +46,7 @@ FFmpeg is built with the following codecs/filters/options:
 - [OpenCV](https://opencv.org)
 - [VMAF](https://github.com/Netflix/vmaf)
 - [Facebook Transform360](https://github.com/facebook/transform360)
+- [libRTMP/RTMPDump](https://rtmpdump.mplayerhq.hu)
 
 
 The versions for these deps are set as ENV vars in `env.rc` so fetching, building and linking against different versions should be relatively painless [unless it fails, of course:)].
