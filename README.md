@@ -84,6 +84,7 @@ For more FFmpeg VMAF options, see https://ffmpeg.org/ffmpeg-filters.html#toc-lib
 ## Important note about distributing the resulting binaries
 Legally, you are NOT, and therefore, should NOT, distribute the resulting binaries.
 The FFmpeg configure command in the Dockerfile includes the `--enable-gpl` and `--enable-nonfree` configuration options and FFmpeg binaries whose build process required these flags cannot be re-distributed.
+
 For more info, see [FFmpeg License and Legal Considerations](https://ffmpeg.org/legal.html).
 
 
