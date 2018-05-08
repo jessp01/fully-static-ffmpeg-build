@@ -10,6 +10,6 @@ COPY libenca.a /usr/lib/x86_64-linux-gnu/libenca.a
 COPY build.sh $BUILD_DIR
 COPY env.rc $BUILD_DIR
 # for testing VMAF
-COPY test/big_buck.mp4 $BUILD_DIR/test
+COPY test/big_buck.mp4 $BUILD_DIR/test/
 
 RUN $BUILD_DIR/build.sh
