@@ -10,3 +10,5 @@ notifications:
   email:
     recipients:
       - jess.portnoy@kaltura.com
+    on_success: change
+    on_failure: always
