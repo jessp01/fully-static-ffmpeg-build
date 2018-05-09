@@ -211,12 +211,27 @@ make install
 
 # test ffmpeg
 ldd $FFMPEG_PREFIX/bin/ffmpeg | grep 'not a dynamic executable'
-$FFMPEG_PREFIX/bin/ffmpeg -filters | grep 360
+$FFMPEG_PREFIX/bin/ffmpeg -h filter=transform360
 $FFMPEG_PREFIX/bin/ffmpeg -h encoder=libx265 2>/dev/null | grep pixel
 $FFMPEG_PREFIX/bin/ffmpeg -h encoder=libx264 2>/dev/null | grep pixel
+MP4_TEST_FILE=$BUILD_DIR/test/big_buck.mp4
+
 # test VMAF
-if [ -r $BUILD_DIR/test/big_buck.mp4 ];then
-     $FFMPEG_PREFIX/bin/ffmpeg -i $BUILD_DIR/test/big_buck.mp4 -i $BUILD_DIR/test/big_buck.mp4 -lavfi libvmaf -f null -t 3 -
+if [ -r $MP4_TEST_FILE ];then
+     $FFMPEG_PREFIX/bin/ffmpeg -i $MP4_TEST_FILE -i $MP4_TEST_FILE -lavfi libvmaf -f null -t 3 -
 fi
+
+# test Transform360 - $MP4_TEST_FILE is not a 360 vid, this is just for basic testing purposes
+$FFMPEG_PREFIX/bin/ffmpeg -i $MP4_TEST_FILE \
+    -vf transform360="input_stereo_format=MONO
+    :cube_edge_length=512
+    :interpolation_alg=cubic
+    :enable_low_pass_filter=1
+    :enable_multi_threading=1
+    :num_horizontal_segments=32
+    :num_vertical_segments=15
+    :adjust_kernel=1" \
+    /tmp/360output.mp4
+
 # archive
 cd / tar zcf $BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz $FFMPEG_PREFIX usr/local/share/model && echo "Final archive created: $BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz" 
