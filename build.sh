@@ -163,7 +163,8 @@ cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz &&
         # push all libstdc++ and opencv objects into libTransform360.a [cause fully static linkage is required]
         ar cr libTransform360.a  CMakeFiles/Transform360.dir/Library/VideoFrameTransform.cpp.o CMakeFiles/Transform360.dir/Library/VideoFrameTransformHandler.cpp.o $BUILD_DIR/objects/*o && \
         make install && cd $BUILD_DIR/ffmpeg-$FFMPEG_VER && \
-        cp $BUILD_DIR/vf_transform360.c libavfilter/ && \
+	# adjust the include paths when in FFmpeg context
+	sed -e "s@transform360/VideoFrameTransformHandler.h@Transform360/Library/VideoFrameTransformHandler.h@g" -e "s@transform360/VideoFrameTransformHelper.h@Transform360/Library/VideoFrameTransformHelper.h@g" transform360-master/Transform360/vf_transform360.c > libavfilter/vf_transform360.c && \
 	cp $BUILD_DIR/Makefile.transform360.patch libavfilter && patch -p0 < libavfilter/Makefile.transform360.patch && \
 	cp $BUILD_DIR/allfilters.c.transform360.patch libavfilter && patch -p0 < libavfilter/allfilters.c.transform360.patch && \
         ./configure --prefix=$FFMPEG_PREFIX --libdir=$FFMPEG_PREFIX/lib --shlibdir=$FFMPEG_PREFIX/lib \

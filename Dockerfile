@@ -2,7 +2,6 @@ FROM ubuntu:12.04
 
 ENV BUILD_DIR=/tmp/build
 RUN mkdir -p $BUILD_DIR/test
-COPY vf_transform360.c  $BUILD_DIR/
 COPY Makefile.transform360.patch           $BUILD_DIR/
 COPY allfilters.c.transform360.patch       $BUILD_DIR/
 # in Ubuntu 12.04, the libenca-dev package is missing the archive, since we need static linkage we copy it over
