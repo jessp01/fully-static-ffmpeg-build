@@ -85,8 +85,8 @@ libvmaf="model_path=/home/jess/share/model/vmaf_v0.6.1.pkl" -f null -t 3 -
 For more FFmpeg VMAF options, see https://ffmpeg.org/ffmpeg-filters.html#toc-libvmaf.libvmaf
 
 ## Important note about distributing the resulting binaries
-Legally, you are NOT, and therefore, should NOT, distribute the resulting binaries.
-The FFmpeg configure command in the Dockerfile includes the `--enable-gpl` and `--enable-nonfree` configuration options and FFmpeg binaries whose build process required these flags cannot be re-distributed.
+Legally, you are **NOT allowed to and therefore, should NOT, distribute the resulting binaries.**
+The FFmpeg configure command in the build.sh includes the `--enable-gpl` and `--enable-nonfree` configuration options and FFmpeg binaries whose build process required these flags cannot be re-distributed.
 
 For more info, see [FFmpeg License and Legal Considerations](https://ffmpeg.org/legal.html).
 
