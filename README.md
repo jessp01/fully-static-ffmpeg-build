@@ -71,7 +71,7 @@ After running a few very basic tests, the FFmpeg basedir is also archived under 
 Of course, you're free to change the prefix or anything else to suit your particular needs.
 
 ### Note about VMAF
-VMAF requires the PKL model files in order to run. These are deployed to /usr/local/share/model by default and are packaged into the /tmp/build/ffmpeg-$FFMPEG_VER.tar.gz archive. 
+VMAF requires the PKL model files in order to run. These are deployed to /usr/local/share/model by default and are packaged into the `$BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz` archive. 
 
 If you wish to deploy them onto a different path, you will need to pass the `model_path` parameter when running your `ffmpeg` command. For instance, if you deployed the model dir to /home/jess/share/model, your ffmpeg command should include **-lavfi libvmaf="model_path=/home/jess/share/model/vmaf_v0.6.1.pkl"**. 
 
