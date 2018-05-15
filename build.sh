@@ -133,7 +133,7 @@ cd $BUILD_DIR && wget -q https://github.com/webmproject/libvpx/archive/v$LIBVPX_
         cd libvpx-$LIBVPX_VER/ && \
         ./configure --enable-pic --enable-static --disable-shared && make -j$MAKE_PARALLEL_JOBS && make install 
 
-cd $BUILD_DIR && wget -q https://github.com/Netflix/vmaf/archive/$VMAF_VER.zip -O vmaf-$VMAF_VER.zip && \
+cd $BUILD_DIR && wget -q https://github.com/Netflix/vmaf/archive/v$VMAF_VER.zip -O vmaf-$VMAF_VER.zip && \
         unzip -qq vmaf-$VMAF_VER.zip && \
         cd vmaf-$VMAF_VER && \
         make -j$MAKE_PARALLEL_JOBS && make install 
