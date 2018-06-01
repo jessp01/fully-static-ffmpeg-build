@@ -39,6 +39,9 @@ apt-get install -y -qq \
         libfreetype6-dev \
         liblapack-dev \
 	libssl-dev \
+	libsndio-dev \
+	libasound2-dev \
+	libpt-dev \
         python \
         python-setuptools \
         python-dev \
@@ -200,6 +203,10 @@ cd $BUILD_DIR && wget -q http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VER.tar.gz &&
 --enable-libfreetype \
 --enable-fontconfig \
 --enable-avisynth \
+--enable-libxcb \
+--enable-libxcb-shm \
+--enable-libxcb-xfixes \
+--enable-libxcb-shape \
 --disable-autodetect \
 --disable-vdpau \
 --enable-libopencv \
@@ -235,4 +242,4 @@ $FFMPEG_PREFIX/bin/ffmpeg -i $MP4_TEST_FILE \
     /tmp/360output.mp4
 
 # archive
-cd / tar zcf $BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz $FFMPEG_PREFIX usr/local/share/model && echo "Final archive created: $BUILD_DIR/ffmpeg-$FFMPEG_VER.tar.gz" 
+cd /  && tar zcf $BUILD_DIR/ffmpeg-${FFMPEG_VER}-bins.tar.gz $FFMPEG_PREFIX usr/local/share/model && echo "Final archive created: $BUILD_DIR/ffmpeg-${FFMPEG_VER}-bins.tar.gz"
