@@ -66,7 +66,7 @@ The process was tested with Ubuntu 12.04 but may work out of the box [or with mi
 
 > If you wish to run build.sh outside a Docker container, make sure you copy `Makefile.transform360.patch` and `allfilters.c.transform360.patch` to wherever the `BUILD_DIR` ENV var is set to [default is /tmp/build].
 
-After running a few very basic tests, the FFmpeg basedir is also archived under /tmp/build/ffmpeg-$FFMPEG_VER.tar.gz.
+After running a few very basic tests, the FFmpeg basedir is also archived under `$BUILD_DIR/ffmpeg-${FFMPEG_VER}-bins.tar.gz`.
 
 Of course, you're free to change the prefix or anything else to suit your particular needs.
 
